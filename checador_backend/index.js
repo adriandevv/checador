@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { sequelize } from './db/config.js';
 import dotenv from 'dotenv';
+import routerApi from './routes/index.js';
 
 dotenv.config();
 const app = express();
@@ -9,6 +10,8 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
+
+routerApi(app);
 
 const testConnection = async () => {
   try {
@@ -26,6 +29,7 @@ const testConnection = async () => {
   }
 };
 testConnection();
+
 
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en el puerto ${PORT}`);
