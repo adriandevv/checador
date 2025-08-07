@@ -18,16 +18,20 @@
     "seed:create": "sequelize-cli seed:generate --name",
     "seed:run": "sequelize-cli db:seed:all",
     "seed:undo": "sequelize-cli db:seed:undo",
-    "seed:undo:all": "sequelize-cli db:seed:undo:all"
+    "seed:undo:all": "sequelize-cli db:seed:undo:all",
+    "create-admin": "node scripts/create-admin.js",
+    "cleanup-tokens": "node scripts/cleanup-tokens.js"
   },
   "keywords": [],
   "author": "Adrian Valencia Hernandez <adrian15996@gmail.com>",
   "license": "MIT",
   "packageManager": "pnpm@10.12.3",
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.14.2",
     "sequelize": "^6.37.7"
   },

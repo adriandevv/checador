@@ -3,6 +3,7 @@ import cors from 'cors';
 import { sequelize } from './db/config.js';
 import dotenv from 'dotenv';
 import routerApi from './routes/index.js';
+import { errorHandler, notFoundHandler } from './middlewares/error.middleware.js';
 
 dotenv.config();
 const app = express();
@@ -12,6 +13,12 @@ app.use(cors());
 app.use(express.json());
 
 routerApi(app);
+
+// Middleware para rutas no encontradas
+app.use(notFoundHandler);
+
+// Middleware para manejo de errores
+app.use(errorHandler);
 
 const testConnection = async () => {
   try {

@@ -1,8 +1,13 @@
 import express from 'express';
 import EmpleadosService from '../services/empleados.service.js';
+import AuthMiddleware from '../middlewares/auth.middleware.js';
 
 const router = express.Router();
 const service = new EmpleadosService();
+const authMiddleware = new AuthMiddleware();
+
+// Aplicar autenticación a todas las rutas de empleados
+router.use(authMiddleware.verifyToken);
 
 router.get('/', async (req, res) => {
 try {
@@ -29,7 +34,8 @@ router.get('/:id', async (req, res) => {
 });
 
 
-router.post('/', async (req, res) => {
+// POST - Solo admin puede crear empleados
+router.post('/', authMiddleware.requireRole(1), async (req, res) => {
     const { nombre, apellido_paterno, apellido_materno } = req.body;
     try {
         const nuevoEmpleado = await service.createEmpleado({ nombre:nombre, apep: apellido_paterno, apem: apellido_materno });
@@ -39,9 +45,8 @@ router.post('/', async (req, res) => {
     }
 });
 
-
-
-router.put('/:id', async (req, res) => {
+// PUT - Solo admin puede actualizar empleados
+router.put('/:id', authMiddleware.requireRole(1), async (req, res) => {
     const { id } = req.params;
     const { nombre, apellido_paterno, apellido_materno } = req.body;
 
@@ -58,7 +63,8 @@ router.put('/:id', async (req, res) => {
 });
 
 
-router.delete('/:id', async (req, res) => {
+// DELETE - Solo admin puede eliminar empleados
+router.delete('/:id', authMiddleware.requireRole(1), async (req, res) => {
     const { id } = req.params;
     try {
        const result = await service.deleteEmpleado(id);

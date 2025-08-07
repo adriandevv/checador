@@ -13,6 +13,7 @@ import { AlertasEspecificas, AlertasEspecificasSchema } from "./alertas_especifi
 import { AlertasGenerales, AlertasGeneralesSchema } from "./alertas_generales.model.js";
 import { Direccion, DireccionSchema } from "./direccion.model.js";
 import { Permisos, PermisosSchema } from "./permisos.model.js";
+import { TokensInvalidados, TokensInvalidadosSchema } from "./tokens_invalidados.model.js";
 
 function setupModels (sequelize){
 // aqui se se inicializan los modelos
@@ -31,6 +32,7 @@ function setupModels (sequelize){
     AlertasGenerales.init(AlertasGeneralesSchema, AlertasGenerales.config(sequelize));
     Direccion.init(DireccionSchema, Direccion.config(sequelize));
     Permisos.init(PermisosSchema, Permisos.config(sequelize));
+    TokensInvalidados.init(TokensInvalidadosSchema, TokensInvalidados.config(sequelize));
 
 // aqui se crean las relaciones entre los modelos
     Usuarios.associate(sequelize.models);
@@ -48,6 +50,7 @@ function setupModels (sequelize){
     AlertasGenerales.associate(sequelize.models);
     Direccion.associate(sequelize.models);
     Permisos.associate(sequelize.models);
+    TokensInvalidados.associate(sequelize.models);
 }
 
 
